@@ -10,12 +10,12 @@ import {Button, SafeAreaView, StyleSheet, View, StatusBar} from 'react-native';
 import {mediaDevices, RTCView} from 'react-native-webrtc';
 
 function App(): React.JSX.Element {
-  const [stream, setStream] = useState(null);
+  const [stream, setStream] = useState<any>(null);
   const start = async () => {
     console.log('start');
     if (!stream) {
       try {
-        const s = await mediaDevices.getUserMedia({video: true});
+        const s: any = await mediaDevices.getUserMedia({video: true});
         setStream(s);
       } catch (e) {
         console.error(e);
