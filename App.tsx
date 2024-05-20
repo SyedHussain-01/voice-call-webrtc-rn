@@ -6,8 +6,17 @@
  */
 
 import React, {useState} from 'react';
-import {Button, SafeAreaView, StyleSheet, View, StatusBar} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  StatusBar,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import {mediaDevices, RTCView} from 'react-native-webrtc';
+import CallAccept from './assets/incoming-call.png';
+import CallDecline from './assets/missed-call.png';
 
 function App(): React.JSX.Element {
   const [stream, setStream] = useState<any>(null);
@@ -35,8 +44,12 @@ function App(): React.JSX.Element {
       <SafeAreaView style={styles.body}>
         {stream && <RTCView streamURL={stream.toURL()} style={styles.stream} />}
         <View style={styles.footer}>
-          <Button title="Start" onPress={start} />
-          <Button title="Stop" onPress={stop} />
+          <TouchableOpacity onPress={start}>
+            <Image source={CallAccept} style={styles.iconStyle} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={stop}>
+            <Image source={CallDecline} style={styles.iconStyle} />
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </>
@@ -51,13 +64,24 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFill,
   },
   stream: {
-    flex: 1,
+    // flex: 1,
+    width: '95%',
+    height: '80%',
+    alignSelf: 'center',
   },
   footer: {
     backgroundColor: '#fff',
     position: 'absolute',
-    bottom: 10,
+    bottom: 20,
     left: 0,
     right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10,
+  },
+  iconStyle: {
+    height: 40,
+    width: 40,
+    marginHorizontal: 10,
   },
 });
